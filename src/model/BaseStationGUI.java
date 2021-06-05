@@ -45,16 +45,6 @@ public class BaseStationGUI extends JFrame {
     public void alarmed() {
         if (station.isArmed()) {
             LED.setBackground(Color.RED);
-            // Sample loop to flash every 1 seconds
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                    LED.setVisible(true);
-                    Thread.sleep(1000);
-                    LED.setVisible(false);
-                } catch (Exception ex) {
-                }
-            }
         }
         else
             LED.setBackground(Color.BLUE);
@@ -66,5 +56,6 @@ public class BaseStationGUI extends JFrame {
     	BaseStationGUI gui = new BaseStationGUI(s);
     	gui.alarmed();
     }
+
 
 }
