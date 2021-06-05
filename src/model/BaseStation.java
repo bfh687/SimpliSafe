@@ -21,6 +21,14 @@ public class BaseStation {
 	 * The list of all sensors associated with the BaseStation.
 	 */
 	private List<Sensor> sensorList;
+	private List<Sensor> carbonMonoList;
+	private List<Sensor> entrySensorList;
+	private List<Sensor> temperatureSensorList;
+	private List<Sensor> motionSensorList;
+	private List<Sensor> glassSensorList;
+	private List<Sensor> waterSensorList;
+	private List<Sensor> smokeSensorList;
+
 	
 	/**
 	 * The list of all cameras associated with the BaseStation.
@@ -251,6 +259,12 @@ public class BaseStation {
 	public static void main(String[] args) throws FileNotFoundException {
 		BaseStation station = new BaseStation();
 		//int defaultPIN = 1234;
+		
+		for (Sensor s : station.getSensors()) {
+			if (s instanceof WaterSensor) {
+				System.out.println(s);
+			}
+		}
 		
 		station.getSensors().get(0).detect();
 		station.arm();
