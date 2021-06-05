@@ -12,16 +12,41 @@ import model.panic.PanicButton;
 import model.sensor.*;
 
 public class BaseStation {
+	/**
+	 * The alarm associated with the BaseStation.
+	 */
 	private Alarm alarm;
-	private int PIN;
+	
+	/**
+	 * The list of all sensors associated with the BaseStation.
+	 */
 	private List<Sensor> sensorList;
+	
+	/**
+	 * The list of all cameras associated with the BaseStation.
+	 */
 	private List<Camera> cameraList;
+	
+	/**
+	 * The list of all panic buttons associated with the BaseStation.
+	 */
 	private List<PanicButton> panicList;
+	
+	/**
+	 * The PIN associated with the BaseStation.
+	 */
+	private int PIN;
+	
+	/**
+	 * Whether the BaseStation is armed.
+	 */
 	private boolean armed; 
 	
-	// add new File config thing
-	public BaseStation() throws FileNotFoundException {
-		// initialize all devices here
+	/**
+	 * Creates a BaseStation from the given config file.
+	 * @throws FileNotFoundException
+	 */
+	public BaseStation(/*File file????*/) throws FileNotFoundException {
 		sensorList = new ArrayList<Sensor>();
 		cameraList = new ArrayList<Camera>();
 		panicList = new ArrayList<PanicButton>();
@@ -35,6 +60,12 @@ public class BaseStation {
 		alarm = new Alarm();
 	}
 	
+	/**
+	 * Loads and initializes all devices associated with the 
+	 * base station using the given config file.
+	 * @param file The config file.
+	 * @throws FileNotFoundException
+	 */
 	public void loadConfig(File file) throws FileNotFoundException {
 		Scanner scan = new Scanner(file);
 		Scanner strScan = null;
@@ -70,16 +101,27 @@ public class BaseStation {
 				case "PanicButton":
 					panicList.add(new PanicButton(this, ID));
 					break;
+				case "CarbonMonoxideSensor":
+				    sensorList.add(new CarbonMonoxideSensor(this, ID));
+				    break;
 			}
 		}
 		scan.close();
 		strScan.close();
 	}
 	
+	/**
+	 * Arms the system.
+	 */
 	public void arm() {
 		armed = true;
+		System.out.println("armed system");
 	}
 	
+	/**
+	 * Attempts to disarm the system using the given PIN.
+	 * @param PIN The PIN for the system.
+	 */
 	public void disarm(int PIN) {
 		if (this.PIN == PIN && isArmed()) {
 			armed = false;
@@ -89,66 +131,123 @@ public class BaseStation {
 		}
 	}
 	
-	public void toggle() {
-		armed = !armed;
-	}
-    
+	/**
+	 * Triggers the system's alarm,
+	 * @param device The device that triggered the alarm.
+	 */
 	public void triggerAlarm(String device) {
 		alarm.trigger(device);
 	}
 	
+	/**
+	 * Adds a sensor to the system.
+	 * @param sensor The sensor to be added to the system.
+	 */
 	public void addSensor(Sensor sensor) {
 		sensorList.add(sensor);
 	}
 	
+	/**
+	 * Removes a sensor from the system.
+	 * @param sensor The sensor to be removed from the system.
+	 */
 	public void removeSensor(Sensor sensor) {
 		sensorList.remove(sensor);
 	}
 	
+	/**
+	 * Adds a camera to the system.
+	 * @param camera The camera to be added to the system.
+	 */
 	public void addCamera(Camera camera) {
 		cameraList.add(camera);
 	}
 	
+	/**
+	 * Removes a camera from the system.
+	 * @param camera The camera to be removed from the system.
+	 */
 	public void removeCamera(Camera camera) {
 		cameraList.remove(camera);
 	}
 	
+	/**
+	 * Adds a panic button to the system.
+	 * @param panicButton The panic button to be added to the system.
+	 */
 	public void addPanicButton(PanicButton panicButton) {
 		panicList.add(panicButton);
 	}
 	
+	/**
+	 * Removes a panic button from the system.
+	 * @param panicButton The panic button to be removed from the system.
+	 */
 	public void removePanicButton(PanicButton panicButton) {
 		panicList.remove(panicButton);
 	}
 	
+	/**
+	 * Returns whether the system is armed or not.
+	 * @return Whether the system is armed or not.
+	 */
 	public boolean isArmed() {
 		return armed;
 	}
 	
+	/**
+	 * Sets the PIN for the system.
+	 * @param PIN The PIN to assign to the system.
+	 */
 	public void setPIN(int PIN) {
 		this.PIN = PIN;
 	}
 	
+	/**
+	 * Gets the PIN for the system.
+	 * @return The PIN for the system.
+	 */
 	public int getPIN() {
 		return PIN;
 	}
 	
+	/**
+	 * Gets a list of all sensors in the system.
+	 * @return A list of all sensors in the system.
+	 */
 	public List<Sensor> getSensors() {
 		return sensorList;
 	}
 	
+	/**
+	 * Gets a list of all cameras in the system.
+	 * @return A list of all cameras in the system.
+	 */
 	public List<Camera> getCameras() {
 		return cameraList;
 	}
 	
+	/**
+	 * Gets a list of all panic buttons in the system.
+	 * @return A list of all panic buttons in the system.
+	 */
 	public List<PanicButton> getPanicButtons() {
 		return panicList;
 	}
 	
+	/**
+	 * Gets the alarm associated with the system.
+	 * @return The alarm associated with the system.
+	 */
 	public Alarm getAlarm() {
 		return alarm;
 	}
 	
+	/**
+	 * The application's entry point. Used for testing the base station.
+	 * @param args Command-line arguements.
+	 * @throws FileNotFoundException
+	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		BaseStation station = new BaseStation();
 		//int defaultPIN = 1234;

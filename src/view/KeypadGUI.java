@@ -98,7 +98,6 @@ public class KeypadGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				station.arm();
 				SimpliSafe.refresh();
-				textField.setText("");
 				LED.setBackground(Color.RED);
 			}
 			

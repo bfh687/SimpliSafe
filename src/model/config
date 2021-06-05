@@ -8,3 +8,6 @@ TemperatureSensor 1
 MotionSensor 1
 PanicButton 1
 PanicButton 2
+CarbonMonoxideSensor 1
+GlassSensor 1
+SmokeSensor 1
