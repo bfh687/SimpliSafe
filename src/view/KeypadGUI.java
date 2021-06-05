@@ -17,9 +17,24 @@ import model.BaseStation;
 
 public class KeypadGUI extends JFrame {
 
-	private static final long serialVersionUID = 4835892900024045580L;
+	/**
+	 * Generated GUI serial version UID.
+	 */
+	private static final long serialVersionUID = -861921561207918092L;
+	
+	/**
+	 * The BaseStation associated with this keypad.
+	 */
 	private BaseStation station;
+	
+	/**
+	 * The textfield where user input is held.
+	 */
 	private JTextField textField;
+	
+	/**
+	 * GUI representation of a LED.
+	 */
 	private JPanel LED;
 	
 	/**
@@ -82,6 +97,8 @@ public class KeypadGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				station.arm();
+				SimpliSafe.refresh();
+				textField.setText("");
 				LED.setBackground(Color.RED);
 			}
 			
@@ -141,6 +158,7 @@ public class KeypadGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					station.disarm(Integer.valueOf(textField.getText()));
+					SimpliSafe.refresh();
 					LED.setBackground(Color.GREEN);
 				} catch (IllegalArgumentException ex) {
 					System.out.println("invalid input/system already disarmed");
@@ -154,5 +172,12 @@ public class KeypadGUI extends JFrame {
 		panel.add(numPanel);
 		
 		return panel;
+	}
+	
+	public void refresh() {
+		if (station.isArmed())
+			LED.setBackground(Color.RED);
+		else
+			LED.setBackground(Color.GREEN);
 	}
 }

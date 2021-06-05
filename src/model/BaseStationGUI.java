@@ -9,11 +9,20 @@ import javax.swing.JPanel;
 
 
 public class BaseStationGUI extends JFrame {
+
     /**
-	 * 
+	 * GUI serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	*
+	*/
 	private BaseStation station;
+
+	/**
+    * GUI representation of a LED, for alarm
+    */
     private JPanel LED;
     
     public BaseStationGUI(BaseStation station) {

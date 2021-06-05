@@ -24,7 +24,7 @@ public class mobileApp extends JFrame {
 	private JTextField textField;
 	private JPanel LED;
 	
-	public KeypadGUI(BaseStation station) {
+	public mobileApp(BaseStation station) {
 		this.station = station;
 		init();
 	}
