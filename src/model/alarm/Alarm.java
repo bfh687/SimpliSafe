@@ -8,12 +8,12 @@ public class Alarm {
 	}
 	
 	// if already active, do nothing
-	public void trigger(String device) {
+	public String trigger(String device) {
 		if (!active) {
 			active = true;
-			System.out.println("ALARM ACTIVE LOUD SOUNDS, SET OFF BY:" + device);
+			return "ALARM ACTIVE LOUD SOUNDS, SET OFF BY:" + device;
 		} else {
-			System.out.println("alarm already active");
+			return "alarm already active";
 		}
 	}
 

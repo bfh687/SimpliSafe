@@ -11,11 +11,11 @@ public class MotionSensor extends Sensor {
 	}
 
 	@Override 
-	public void detect() {
+	public String detect() {
 		// detect sensor specific threat via hardware here
 		if (station.isArmed() && !station.getAlarm().isActive()) 
-			station.triggerAlarm(toString());
+			return station.triggerAlarm(toString());
 		else
-			System.out.println("Station is not armed and/or alarm is already active");
+			return "Station is not armed and/or alarm is already active";
 	}
 }

@@ -34,5 +34,5 @@ public abstract class Sensor {
 		return "[" + this.getClass().getSimpleName() + ID + "]";
 	}
 	
-	public abstract void detect();
+	public abstract String detect();
 }
