@@ -17,9 +17,9 @@ public class BaseStation {
 	private List<Sensor> sensorList;
 	private List<Camera> cameraList;
 	private List<PanicButton> panicList;
-	private int state; // implement this later, state 1 = home, 2 = away (immediate alarm), 3 = disarmed
 	private boolean armed;
 	
+	// add new File config thing
 	public BaseStation(Alarm alarm) throws FileNotFoundException {
 		// initialize all devices here
 		sensorList = new ArrayList<Sensor>();
@@ -37,15 +37,6 @@ public class BaseStation {
 	}
 	
 	public void loadConfig(File file) throws FileNotFoundException {
-		/* Example Text File:
-		 * 1294 (PIN)
-		 * type ID  (all sorted by ID and type alphabetically)
-		 * type ID
-		 * type ID
-		 * type ID
-		 * type ID
-		 */
-		
 		Scanner scan = new Scanner(file);
 		Scanner strScan = null;
 		if (scan.hasNextLine())
@@ -90,8 +81,12 @@ public class BaseStation {
 		armed = true;
 	}
 	
-	public void disarm() {
-		armed = false;
+	public void disarm(int PIN) {
+		if (this.PIN == PIN) {
+			armed = false;
+		} else {
+			throw new IllegalArgumentException("Incorrect PIN");
+		}
 	}
 	
 	public void toggle() {
@@ -101,8 +96,6 @@ public class BaseStation {
 	public void triggerAlarm(String device) {
 		alarm.trigger(device);
 	}
-	
-	// add remove option
 	
 	public void addSensor(Sensor sensor) {
 		sensorList.add(sensor);
@@ -134,7 +127,6 @@ public class BaseStation {
 	
 	public void setPIN(int PIN) {
 		this.PIN = PIN;
-		// edit the file
 	}
 	
 	public int getPIN() {
@@ -157,10 +149,10 @@ public class BaseStation {
 		return alarm;
 	}
 	
-	// testing 
 	public static void main(String[] args) throws FileNotFoundException {
 		Alarm alarm = new Alarm();
 		BaseStation station = new BaseStation(alarm);
+		//int defaultPIN = 1234;
 		
 		station.getSensors().get(0).detect();
 		station.arm();
