@@ -11,6 +11,7 @@ public class PanicButton {
 	public PanicButton(BaseStation station, int ID) {
 		this.station = station;
 		this.ID = ID;
+		deviceCount++;
 	}
 	
 	public void panic() {

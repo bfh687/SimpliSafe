@@ -14,6 +14,7 @@ public class Camera {
 		active = true;
 		image = null; // placeholder image
 		this.ID = ID;
+		deviceCount++;
 	}
 	
 	public void enable() {

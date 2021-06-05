@@ -17,23 +17,22 @@ public class BaseStation {
 	private List<Sensor> sensorList;
 	private List<Camera> cameraList;
 	private List<PanicButton> panicList;
-	private boolean armed;
+	private boolean armed; 
 	
 	// add new File config thing
-	public BaseStation(Alarm alarm) throws FileNotFoundException {
+	public BaseStation() throws FileNotFoundException {
 		// initialize all devices here
 		sensorList = new ArrayList<Sensor>();
 		cameraList = new ArrayList<Camera>();
 		panicList = new ArrayList<PanicButton>();
-		File file = new File("C:\\Users\\seshb\\Documents\\WINTER 21\\WORKSPACE\\SimpliSafe\\src\\model\\config");
+		File file = new File("src/model/config");
 		try {
 			loadConfig(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to load config from file.");
 		}
-		
-		this.alarm = alarm;
 		armed = false;
+		alarm = new Alarm();
 	}
 	
 	public void loadConfig(File file) throws FileNotFoundException {
@@ -82,10 +81,11 @@ public class BaseStation {
 	}
 	
 	public void disarm(int PIN) {
-		if (this.PIN == PIN) {
+		if (this.PIN == PIN && isArmed()) {
 			armed = false;
+			System.out.println("disarmed system");
 		} else {
-			throw new IllegalArgumentException("Incorrect PIN");
+			throw new IllegalArgumentException("Incorrect PIN or system already disarmed.");
 		}
 	}
 	
@@ -150,8 +150,7 @@ public class BaseStation {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		Alarm alarm = new Alarm();
-		BaseStation station = new BaseStation(alarm);
+		BaseStation station = new BaseStation();
 		//int defaultPIN = 1234;
 		
 		station.getSensors().get(0).detect();

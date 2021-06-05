@@ -15,24 +15,21 @@ import javax.swing.border.EmptyBorder;
 
 import model.BaseStation;
 
-public class KeypadGUI extends JFrame {
-
+public class mobileApp extends JFrame {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 4835892900024045580L;
 	private BaseStation station;
 	private JTextField textField;
 	private JPanel LED;
 	
-	/**
-	 * Creates a GUI representation of a keypad in a SimpliSafe security system.
-	 * @param station The BaseStation attached to the keypad.
-	 */
 	public KeypadGUI(BaseStation station) {
 		this.station = station;
 		init();
 	}
 	
-	// initializes the keypad GUI
-	private void init() {
+	public void init() {
 		setSize(new Dimension(300, 450));
 		setMinimumSize(new Dimension(300, 450));
 		
@@ -41,7 +38,7 @@ public class KeypadGUI extends JFrame {
 		add(panel);
 		
 		JPanel textFieldPanel = createTextField();
-		textFieldPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
+		textFieldPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		panel.add(textFieldPanel, BorderLayout.NORTH);
 		
 		JPanel keypadPanel = createKeypad();
@@ -56,8 +53,7 @@ public class KeypadGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	// creates the text field and LED representation for keypad
-	private JPanel createTextField() {
+	public JPanel createTextField() {
 		JPanel panel = new JPanel(new BorderLayout());
 		textField = new JTextField(10);
 		textField.setEditable(false);
@@ -65,18 +61,17 @@ public class KeypadGUI extends JFrame {
 
 		LED = new JPanel();
 		LED.setBackground(Color.GREEN);
-		LED.setPreferredSize(new Dimension(30, 30));
 		panel.add(LED, BorderLayout.EAST);
 		
 		return panel;
 	}
 	
-	// creates the keypad/numpad buttons
-	private JPanel createKeypad() {
+	public JPanel createKeypad() {
 		JPanel panel = new JPanel(new BorderLayout());
 		
-		// creates the arm button
+		// --------------------------------------------------
 		JPanel armButtons = new JPanel();
+		
 		JButton stay = new JButton("Arm");
 		stay.addActionListener(new ActionListener() {
 			@Override
@@ -86,19 +81,24 @@ public class KeypadGUI extends JFrame {
 			}
 			
 		});
-		armButtons.add(stay);
-		armButtons.setBorder(new EmptyBorder(0, 0, 10, 0));
 		
-		// initializes the back button for access in below for-loop
-		JButton backButton = new JButton("\u2190");
+		armButtons.add(stay);
+		
+		armButtons.setBorder(new EmptyBorder(0, 0, 10, 0));
+		// --------------------------------------------------
+		
+		// --------------------------------------------------
+		JPanel numPanel = new JPanel(new GridLayout(4, 3));
+		
+		JButton[] buttons = new JButton[10];
+		
+		final JButton backButton = new JButton("\u2190");
 		backButton.setEnabled(false);
 		
-		// creates buttons for 1-9 and adds them to keypad
-		JButton[] buttons = new JButton[10];
-		JPanel numPanel = new JPanel(new GridLayout(4, 3));
 		for (int i = 1; i < 10; i++) {
 			JButton btn = new JButton("" + i);
 			buttons[i] = btn;
+			System.out.println(btn.getText());
 			btn.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -106,11 +106,11 @@ public class KeypadGUI extends JFrame {
 						backButton.setEnabled(true);
 					textField.setText(textField.getText().concat(btn.getText()));
 				}
+				
 			});
 			numPanel.add(btn);
 		}
 		
-		// creates the "back" button and adds it to keypad
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +122,6 @@ public class KeypadGUI extends JFrame {
 		});
 		numPanel.add(backButton);
 		
-		// creates the "0" button and adds it to keypad
 		JButton button0 = new JButton("0");
 		button0.addActionListener(new ActionListener() {
 
@@ -134,25 +133,26 @@ public class KeypadGUI extends JFrame {
 		});
 		numPanel.add(button0);
 		
-		// creates the "enter" button and adds it to keypad
 		JButton enterButton = new JButton("\u2713");
 		enterButton.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					station.disarm(Integer.valueOf(textField.getText()));
-					LED.setBackground(Color.GREEN);
 				} catch (IllegalArgumentException ex) {
-					System.out.println("invalid input/system already disarmed");
+					System.out.println("invalid input");
 				}
-				textField.setText("");
 			}
+			
 		});
 		numPanel.add(enterButton);
+		// --------------------------------------------------
 		
 		panel.add(armButtons, BorderLayout.NORTH);
 		panel.add(numPanel);
 		
 		return panel;
 	}
+	
 }
