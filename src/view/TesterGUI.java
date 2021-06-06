@@ -1,6 +1,7 @@
 package view;
 
 import model.BaseStation;
+import model.BaseStationGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,14 @@ public class TesterGUI extends JFrame {
      * Home base to be used in tests
      */
     private BaseStation station;
+    /**
+     * keypad gui
+     */
+    private KeypadGUI keypad;
+    /**
+     * base station gui
+     */
+    private BaseStationGUI baseGUI;
 
     public TesterGUI(BaseStation theBase) throws FileNotFoundException {
         this.station = theBase;

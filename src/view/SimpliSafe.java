@@ -12,13 +12,13 @@ public class SimpliSafe {
 	public static ArrayList<KeypadGUI> keypadList = new ArrayList<KeypadGUI>();
     public static BaseStationGUI baseGUI;
     public static TesterGUI testGUI; //s
-    
+
     public static void main(String [] args) throws FileNotFoundException{
         BaseStation homeBase = new BaseStation();
         
         keypadList.add(new KeypadGUI(homeBase));
         keypadList.add(new KeypadGUI(homeBase));
-        
+
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
     }
@@ -26,6 +26,7 @@ public class SimpliSafe {
     public static void refresh() {
     	for (KeypadGUI keypad : keypadList) {
     		keypad.refresh();
+            baseGUI.alarmed();
     	}
     	baseGUI.refresh();
     }

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,6 +77,7 @@ public class KeypadGUI extends JFrame {
 	private JPanel createTextField() {
 		JPanel panel = new JPanel(new BorderLayout());
 		textField = new JTextField(10);
+		textField.setPreferredSize(new Dimension(0, 30));
 		textField.setEditable(false);
 		panel.add(textField);
 
@@ -173,10 +176,43 @@ public class KeypadGUI extends JFrame {
 		return panel;
 	}
 	
-	public void refresh() {
-		if (station.isArmed())
-			LED.setBackground(Color.RED);
-		else
-			LED.setBackground(Color.GREEN);
+	public void flashLED() {
+		if (station.getAlarm().isActive()) {
+            LED.setBackground(Color.RED);
+            // Sample loop to flash every 1 seconds
+            
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                private int state;
+                public void run() {
+                    if (state % 2 == 0) {
+                        LED.setVisible(true);
+                    } else {
+                        LED.setVisible(false);
+                    }
+                    if (!station.getAlarm().isActive()) {
+                    	timer.cancel();
+                    	timer.purge();
+                    	LED.setVisible(true);
+                    }
+                    state++;
+                }
+            };
+            timer.schedule(task, 0, 500);
+        } else {
+            LED.setBackground(Color.RED);
+            LED.setVisible(true);
+        }
 	}
+	
+	public void refresh() {
+		if (station.isArmed()) {
+			LED.setBackground(Color.RED);
+			flashLED();
+		} else {
+			LED.setBackground(Color.GREEN);
+		}
+	}
+	
+	
 }
