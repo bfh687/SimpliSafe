@@ -2,11 +2,10 @@ package model;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
-import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Timer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import model.BaseStation;
 
@@ -46,27 +45,36 @@ public class BaseStationGUI extends JFrame {
 
     //if alarm is on or not
     public void alarmed() {
-        if (station.isArmed()) {
+        if (station.getAlarm().isActive()) {
             LED.setBackground(Color.RED);
             // Sample loop to flash every 1 seconds
             
-            TimerTask task = new TimerTask() {
-            	private int state;
-        		public void run() {
-        			if (state % 2 == 0) {
-        				LED.setVisible(true);
-        			} else {
-        				LED.setVisible(false);
-        			}
-        			state++;
-        		}
-        	};
-        	
             Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                private int state;
+                public void run() {
+                    if (state % 2 == 0) {
+                        LED.setVisible(true);
+                    } else {
+                        LED.setVisible(false);
+                    }
+                    if (!station.getAlarm().isActive()) {
+                    	timer.cancel();
+                    	timer.purge();
+                    	LED.setVisible(true);
+                    }
+                    state++;
+                }
+            };
             timer.schedule(task, 0, 500);
-        }
-        else
+        } else {
             LED.setBackground(Color.BLUE);
+            LED.setVisible(true);
+        }
+    }
+    
+    public void refresh() {
+    	alarmed();
     }
     
     public static void main(String[] args) throws FileNotFoundException {
@@ -75,5 +83,6 @@ public class BaseStationGUI extends JFrame {
     	BaseStationGUI gui = new BaseStationGUI(s);
     	gui.alarmed();
     }
+
 
 }

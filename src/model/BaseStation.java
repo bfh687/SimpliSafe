@@ -138,6 +138,9 @@ public class BaseStation {
 	public void disarm(int PIN) {
 		if (this.PIN == PIN && isArmed()) {
 			armed = false;
+			if (alarm.isActive()) {
+				alarm.disable();
+			}
 			System.out.println("disarmed system");
 		} else {
 			throw new IllegalArgumentException("Incorrect PIN or system already disarmed.");
