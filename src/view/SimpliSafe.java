@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import model.BaseStation;
+import model.BaseStationGUI;
 
 public class SimpliSafe {
 	
@@ -12,10 +13,13 @@ public class SimpliSafe {
     public static void main(String [] args) throws FileNotFoundException{
         BaseStation homeBase = new BaseStation();
         
-        keypadList.add(new KeypadGUI(homeBase));
-        keypadList.add(new KeypadGUI(homeBase));
+        KeypadGUI keypad1 = new KeypadGUI(homeBase);
+        KeypadGUI keypad2 = new KeypadGUI(homeBase);
+        keypadList.add(keypad1);
+        keypadList.add(keypad2);
         
-        //new BaseStationGUI(homeBase);
+        new BaseStationGUI(homeBase);
+        new TesterGUI(homeBase);
     }
     
     public static void refresh() {

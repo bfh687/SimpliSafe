@@ -2,8 +2,11 @@ package model;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.BaseStation;
 
@@ -46,15 +49,21 @@ public class BaseStationGUI extends JFrame {
         if (station.isArmed()) {
             LED.setBackground(Color.RED);
             // Sample loop to flash every 1 seconds
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                    LED.setVisible(true);
-                    Thread.sleep(1000);
-                    LED.setVisible(false);
-                } catch (Exception ex) {
-                }
-            }
+            
+            TimerTask task = new TimerTask() {
+            	private int state;
+        		public void run() {
+        			if (state % 2 == 0) {
+        				LED.setVisible(true);
+        			} else {
+        				LED.setVisible(false);
+        			}
+        			state++;
+        		}
+        	};
+        	
+            Timer timer = new Timer();
+            timer.schedule(task, 0, 500);
         }
         else
             LED.setBackground(Color.BLUE);
