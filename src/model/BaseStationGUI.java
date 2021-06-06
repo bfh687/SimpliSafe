@@ -2,6 +2,8 @@ package model;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.TimerTask;
+import java.util.Timer;
 
 import javax.swing.*;
 
@@ -45,9 +47,26 @@ public class BaseStationGUI extends JFrame {
     public void alarmed() {
         if (station.isArmed()) {
             LED.setBackground(Color.RED);
-        }
-        else
+            // Sample loop to flash every 1 seconds
+
+            TimerTask task = new TimerTask() {
+                private int state;
+                public void run() {
+                    if (state % 2 == 0) {
+                        LED.setVisible(true);
+                    } else {
+                        LED.setVisible(false);
+                    }
+                    state++;
+                }
+            };
+
+            Timer timer = new Timer();
+            timer.schedule(task, 0, 500);
+        } else {
+
             LED.setBackground(Color.BLUE);
+        }
     }
     
     public static void main(String[] args) throws FileNotFoundException {
