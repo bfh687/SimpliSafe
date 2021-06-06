@@ -1,13 +1,10 @@
 package model;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.util.TimerTask;
 import java.util.Timer;
 
 import javax.swing.*;
-
-import model.BaseStation;
 
 public class BaseStationGUI extends JFrame {
     /**
@@ -27,9 +24,9 @@ public class BaseStationGUI extends JFrame {
     	setMinimumSize(new Dimension(300, 450));
 
     	JPanel panel = new JPanel();
-        		panel.setLayout(new BorderLayout());
-        		add(panel);
-        		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(new BorderLayout());
+		add(panel);
+		panel.setBackground(Color.LIGHT_GRAY);
 
         LED = new JPanel();
         LED.setBackground(Color.BLUE);
@@ -76,13 +73,4 @@ public class BaseStationGUI extends JFrame {
     public void refresh() {
     	alarmed();
     }
-    
-    public static void main(String[] args) throws FileNotFoundException {
-    	BaseStation s = new BaseStation();
-    	s.arm();
-    	BaseStationGUI gui = new BaseStationGUI(s);
-    	gui.alarmed();
-    }
-
-
 }

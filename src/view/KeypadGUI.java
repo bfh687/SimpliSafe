@@ -50,6 +50,7 @@ public class KeypadGUI extends JFrame {
 	
 	// initializes the keypad GUI
 	private void init() {
+		setTitle("Keypad");
 		setSize(new Dimension(300, 450));
 		setMinimumSize(new Dimension(300, 450));
 		

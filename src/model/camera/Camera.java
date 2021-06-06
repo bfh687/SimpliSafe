@@ -1,44 +1,49 @@
 package model.camera;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public class Camera {
 	public static int deviceCount = 0;
-	
-	// video feed
-	private Image image;
+
+	private BufferedImage activeImage;
+	private BufferedImage nullImage;
 	private int ID;
 	private boolean active;
 	
 	public Camera(int ID) {
 		active = true;
-		image = null; // placeholder image
+		try {
+			activeImage = ImageIO.read(new File("src/model/camera/placeholder.jpg"));
+			nullImage = ImageIO.read(new File("src/model/camera/placeholdernull.jpg"));
+		} catch(Exception e) {
+			System.out.println("Failed to load image");
+		}
 		this.ID = ID;
 		deviceCount++;
 	}
 	
 	public void enable() {
-		System.out.println("enabled camera");
 		active = true;
 	}
 	
 	public void disable() {
-		System.out.println("disabled camera");
 		active = false;
 	}
 	
 	public void toggle() {
 		active = !active;
+		System.out.println("active = " + active);
 	}
 	
-	// returns a placeholder image of the "videostream"
-	public Image stream() {
+	public BufferedImage stream() {
 		if (active) {
-			System.out.println("Returned video stream image (enabled)");
-			return image;
+			return activeImage;
 		} else {
-			System.out.println("Returned black stream image (disabled)");
-			return image; // black placeholder image
+			return nullImage;
 		}
 	}
 	
