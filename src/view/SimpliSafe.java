@@ -11,7 +11,7 @@ public class SimpliSafe {
 	// list of keypads for refresh method
 	public static ArrayList<KeypadGUI> keypadList = new ArrayList<KeypadGUI>();
     public static BaseStationGUI baseGUI;
-    public static TesterGUI testGUI;
+    public static TesterGUI testGUI; //s
     
     public static void main(String [] args) throws FileNotFoundException{
         BaseStation homeBase = new BaseStation();
