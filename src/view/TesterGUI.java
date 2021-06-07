@@ -104,32 +104,46 @@ public class TesterGUI extends JFrame {
      */
     private void buttonListeners() {
 	    alarms[0].addActionListener(e -> {
-	        result.setText(station.getCarbonMonoList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getCarbonMonoList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[1].addActionListener(e -> {
-	        result.setText(station.getEntrySensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getEntrySensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[2].addActionListener(e -> {
-	        result.setText(station.getGlassSensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getGlassSensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[3].addActionListener(e -> {
-	        result.setText(station.getMotionSensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getMotionSensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[4].addActionListener(e -> {
-	        result.setText(station.getSmokeSensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getSmokeSensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[5].addActionListener(e -> {
-	        result.setText(station.getTemperatureSensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getTemperatureSensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[6].addActionListener(e -> {
-	        result.setText(station.getWaterSensorList().get(0).detect());
-	        refresh();
+	    	if (!station.getAlarm().isActive()) {
+		        result.setText(station.getWaterSensorList().get(0).detect());
+		        refresh();
+	    	}
 	    });
 	    alarms[7].addActionListener(e -> {
 	        station.disarm(1234);
