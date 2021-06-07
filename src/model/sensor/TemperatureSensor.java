@@ -24,7 +24,7 @@ public class TemperatureSensor extends Sensor {
 	}
 	
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * Detects freezing temperatures. Since we do not have access to the physical component,
 	 * it is implied that when this method is called the sensor has sensed a freezing temperature.
 	 */

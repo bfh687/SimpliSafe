@@ -24,7 +24,7 @@ public class MotionSensor extends Sensor {
 	}
 	
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * Detects motion. Since we do not have access to the physical component, it is
 	 * implied that when this method is called the sensor has sensed motion.
 	 */

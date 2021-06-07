@@ -24,7 +24,7 @@ public class GlassSensor extends Sensor {
 	}
 	
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * Detects glass-break. Since we do not have access to the physical component, it is
 	 * implied that when this method is called the sensor has sensed glass breaking.
 	 */

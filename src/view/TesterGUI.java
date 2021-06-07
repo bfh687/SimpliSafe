@@ -52,7 +52,8 @@ public class TesterGUI extends JFrame {
     
     /**
 	 * Creates a GUI representation of our SimpliSafe security system's tester.
-	 * @param station The BaseStation attached to the tester.
+	 * @param theBase The BaseStation attached to the tester.
+	 * @throws FileNotFoundException
 	 */
     public TesterGUI(BaseStation theBase) throws FileNotFoundException {
         this.station = theBase;

@@ -52,6 +52,7 @@ public class KeypadGUI extends JFrame {
 	/**
 	 * Creates a GUI representation of a keypad in a SimpliSafe security system.
 	 * @param station The BaseStation attached to the keypad.
+	 * @param ID The ID of the keypad represented by the GUI.
 	 */
 	public KeypadGUI(BaseStation station, int ID) {
 		this.station = station;

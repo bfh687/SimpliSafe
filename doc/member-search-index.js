@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"model.sensor","c":"EntrySensor","l":"detect()"},{"p":"model.sensor","c":"EntrySensor","l":"deviceCount"},{"p":"model.sensor","c":"EntrySensor","l":"EntrySensor(BaseStation, int)","u":"%3Cinit%3E(model.BaseStation,int)"}];updateSearchResults();

@@ -37,6 +37,7 @@ public class CameraGUI extends JFrame {
     /**
 	 * Creates a GUI representation of a camera in a SimpliSafe security system.
 	 * @param station The BaseStation attached to the camera.
+	 * @param ID The ID of the camera represented by the GUI.
 	 */
     public CameraGUI(BaseStation station, int ID) {
         this.station = station;

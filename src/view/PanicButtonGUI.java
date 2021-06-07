@@ -38,6 +38,7 @@ public class PanicButtonGUI extends JFrame {
 	/**
 	 * Creates a GUI representation of a panic button in a SimpliSafe security system.
 	 * @param station The BaseStation attached to the panic button.
+	 * @param ID The ID of the panic button represented by the GUI.
 	 */
     public PanicButtonGUI(BaseStation station, int ID) {
         this.station = station;

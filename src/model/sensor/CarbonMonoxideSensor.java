@@ -24,7 +24,7 @@ public class CarbonMonoxideSensor extends Sensor {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * Detects carbon monoxide. Since we do not have access to the physical component,
 	 * it is implied that when this method is called the sensor has sensed carbon monoxide.
 	 */
