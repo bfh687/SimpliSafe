@@ -17,6 +17,10 @@ import javax.swing.border.EmptyBorder;
 
 import model.BaseStation;
 
+/**
+ * GUI representation of a keypad.
+ * @author Blake Hamilton
+ */
 public class KeypadGUI extends JFrame {
 
 	/**
@@ -40,17 +44,37 @@ public class KeypadGUI extends JFrame {
 	private JPanel LED;
 	
 	/**
+	 * The ID number of the keypad associated with the GUI.
+	 */
+	private int ID;
+	
+	/**
 	 * Creates a GUI representation of a keypad in a SimpliSafe security system.
 	 * @param station The BaseStation attached to the keypad.
 	 */
-	public KeypadGUI(BaseStation station) {
+	public KeypadGUI(BaseStation station, int ID) {
 		this.station = station;
+		this.ID = ID;
 		init();
 	}
 	
-	// initializes the keypad GUI
+	/**
+	 * Refreshes the GUI display.
+	 */
+	public void refresh() {
+		if (station.isArmed() || station.getAlarm().isActive()) {
+			LED.setBackground(Color.RED);
+			flashLED();
+		} else {
+			LED.setBackground(Color.GREEN);
+		}
+	}
+	
+	/**
+	 * Initializes all GUI components.
+	 */
 	private void init() {
-		setTitle("Keypad");
+		setTitle("Keypad" + ID);
 		setSize(new Dimension(300, 450));
 		setMinimumSize(new Dimension(300, 450));
 		
@@ -74,7 +98,10 @@ public class KeypadGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	// creates the text field and LED representation for keypad
+	/**
+	 * Creates the textfield and LED display components.
+	 * @return Panel holding the textfield and LED display components.
+	 */
 	private JPanel createTextField() {
 		JPanel panel = new JPanel(new BorderLayout());
 		textField = new JTextField(10);
@@ -90,7 +117,10 @@ public class KeypadGUI extends JFrame {
 		return panel;
 	}
 	
-	// creates the keypad/numpad buttons
+	/**
+	 * Creates the keypad component.
+	 * @return Panel holding the keypad component.
+	 */
 	private JPanel createKeypad() {
 		JPanel panel = new JPanel(new BorderLayout());
 		
@@ -177,11 +207,14 @@ public class KeypadGUI extends JFrame {
 		return panel;
 	}
 	
-	public void flashLED() {
+	/**
+	 * Changes the LED's display state.
+	 */
+	private void flashLED() {
 		if (station.getAlarm().isActive()) {
             LED.setBackground(Color.RED);
-            // Sample loop to flash every 1 seconds
             
+            // flash LED is alarm is active
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 private int state;
@@ -205,15 +238,4 @@ public class KeypadGUI extends JFrame {
             LED.setVisible(true);
         }
 	}
-	
-	public void refresh() {
-		if (station.isArmed()) {
-			LED.setBackground(Color.RED);
-			flashLED();
-		} else {
-			LED.setBackground(Color.GREEN);
-		}
-	}
-	
-	
 }

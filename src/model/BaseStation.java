@@ -11,24 +11,54 @@ import model.camera.Camera;
 import model.panic.PanicButton;
 import model.sensor.*;
 
+/**
+ * The base station of our SimpliSafe system.
+ * @author Blake Hamilton
+ * @author Alibile Ugas
+ * @author Lynda Tanielu
+ */
 public class BaseStation {
+	
 	/**
 	 * The alarm associated with the BaseStation.
 	 */
 	private Alarm alarm;
 	
 	/**
-	 * The list of all sensors associated with the BaseStation.
+	 * The list of carbon monoxide sensors associated with the BaseStation.
 	 */
 	private List<Sensor> carbonMonoList;
+	
+	/**
+	 * The list of carbon entry sensors associated with the BaseStation.
+	 */
 	private List<Sensor> entrySensorList;
+	
+	/**
+	 * The list of carbon temperature sensors associated with the BaseStation.
+	 */
 	private List<Sensor> temperatureSensorList;
+	
+	/**
+	 * The list of carbon motion sensors associated with the BaseStation.
+	 */
 	private List<Sensor> motionSensorList;
+	
+	/**
+	 * The list of glass-break sensors associated with the BaseStation.
+	 */
 	private List<Sensor> glassSensorList;
+	
+	/**
+	 * The list of carbon water sensors associated with the BaseStation.
+	 */
 	private List<Sensor> waterSensorList;
+	
+	/**
+	 * The list of carbon smoke detectors/sensors associated with the BaseStation.
+	 */
 	private List<Sensor> smokeSensorList;
 
-	
 	/**
 	 * The list of all cameras associated with the BaseStation.
 	 */
@@ -50,10 +80,12 @@ public class BaseStation {
 	private boolean armed; 
 	
 	/**
-	 * Creates a BaseStation from the given config file.
+	 * Creates a BaseStation from the given configuration file.
 	 * @throws FileNotFoundException
 	 */
-	public BaseStation(/*File file????*/) throws FileNotFoundException {
+	public BaseStation(File file) throws FileNotFoundException {
+		
+		// initialize all device lists
 		carbonMonoList = new ArrayList<Sensor>();
 		entrySensorList = new ArrayList<Sensor>();
 		temperatureSensorList = new ArrayList<Sensor>();
@@ -63,64 +95,17 @@ public class BaseStation {
 		smokeSensorList = new ArrayList<Sensor>();
 		cameraList = new ArrayList<Camera>();
 		panicList = new ArrayList<PanicButton>();
-		File file = new File("src/model/config");
+		
+		// load devices from configuration file
 		try {
 			loadConfig(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to load config from file.");
 		}
+		
+		// set default state of system and create alarm
 		armed = false;
 		alarm = new Alarm();
-	}
-	
-	/**
-	 * Loads and initializes all devices associated with the 
-	 * base station using the given config file.
-	 * @param file The config file.
-	 * @throws FileNotFoundException
-	 */
-	public void loadConfig(File file) throws FileNotFoundException {
-		Scanner scan = new Scanner(file);
-		Scanner strScan = null;
-		if (scan.hasNextLine())
-			PIN = Integer.valueOf(scan.nextLine());
-		while(scan.hasNextLine()) {
-			strScan = new Scanner(scan.nextLine());
-			String type = strScan.next();
-			int ID = Integer.valueOf(strScan.next());
-
-			switch(type) {
-				case "EntrySensor":
-					entrySensorList.add(new EntrySensor(this, ID));
-					break;
-				case "MotionSensor":
-					motionSensorList.add(new MotionSensor(this, ID));
-					break;
-				case "GlassSensor":
-					glassSensorList.add(new GlassSensor(this, ID));
-					break;
-				case "SmokeSensor":
-					smokeSensorList.add(new SmokeSensor(this, ID));
-					break;
-				case "TemperatureSensor":
-					temperatureSensorList.add(new TemperatureSensor(this, ID));
-					break;
-				case "WaterSensor":
-					waterSensorList.add(new WaterSensor(this, ID));
-					break;
-				case "Camera":
-					cameraList.add(new Camera(ID));
-					break;
-				case "PanicButton":
-					panicList.add(new PanicButton(this, ID));
-					break;
-				case "CarbonMonoxideSensor":
-				    carbonMonoList.add(new CarbonMonoxideSensor(this, ID));
-				    break;
-			}
-		}
-		scan.close();
-		strScan.close();
 	}
 	
 	/**
@@ -128,7 +113,6 @@ public class BaseStation {
 	 */
 	public void arm() {
 		armed = true;
-		System.out.println("armed system");
 	}
 	
 	/**
@@ -141,14 +125,13 @@ public class BaseStation {
 			if (alarm.isActive()) {
 				alarm.disable();
 			}
-			System.out.println("disarmed system");
 		} else {
 			throw new IllegalArgumentException("Incorrect PIN or system already disarmed.");
 		}
 	}
 	
 	/**
-	 * Triggers the system's alarm,
+	 * Triggers the system's alarm.
 	 * @param device The device that triggered the alarm.
 	 */
 	public String triggerAlarm(String device) {
@@ -228,33 +211,57 @@ public class BaseStation {
 	}
 	
 	/**
-	 * Gets a list of all sensors in the system.
-	 * @return A list of all sensors in the system.
+	 * Gets a list of all carbon monoxide sensors in the system.
+	 * @return A list of all carbon monoxide sensors in the system.
 	 */
 	public List<Sensor> getCarbonMonoList() {
 		return carbonMonoList;
 	}
-
+	
+	/**
+	 * Gets a list of all entry sensors in the system.
+	 * @return A list of all entry sensors in the system.
+	 */
 	public List<Sensor> getEntrySensorList() {
 		return entrySensorList;
 	}
-
+	
+	/**
+	 * Gets a list of all temperature sensors in the system.
+	 * @return A list of all temperature sensors in the system.
+	 */
 	public List<Sensor> getTemperatureSensorList() {
 		return temperatureSensorList;
 	}
-
+	
+	/**
+	 * Gets a list of all motion sensors in the system.
+	 * @return A list of all motion sensors in the system.
+	 */
 	public List<Sensor> getMotionSensorList() {
 		return motionSensorList;
 	}
-
+	
+	/**
+	 * Gets a list of all glass-break sensors in the system.
+	 * @return A list of all glass-break sensors in the system.
+	 */
 	public List<Sensor> getGlassSensorList() {
 		return glassSensorList;
 	}
-
+	
+	/**
+	 * Gets a list of all water sensors in the system.
+	 * @return A list of all water sensors in the system.
+	 */
 	public List<Sensor> getWaterSensorList() {
 		return waterSensorList;
 	}
-
+	
+	/**
+	 * Gets a list of all smoke detectors/sensors in the system.
+	 * @return A list of all smoke detectors/sensors in the system.
+	 */
 	public List<Sensor> getSmokeSensorList() {
 		return smokeSensorList;
 	}
@@ -284,34 +291,53 @@ public class BaseStation {
 	}
 	
 	/**
-	 * The application's entry point. Used for testing the base station.
-	 * @param args Command-line arguements.
+	 * Loads and initializes all devices associated with the 
+	 * base station using the given config file.
+	 * @param file The config file.
 	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
-		BaseStation station = new BaseStation();
-		//int defaultPIN = 1234;
-		
-		//for (Sensor s : station.getSensors()) {
-		//	if (s instanceof WaterSensor) {
-		//		System.out.println(s);
-		//	}
-		//}
-		
-		//station.getSensors().get(0).detect();
-		station.arm();
-		//station.getSensors().get(0).detect();
-		System.out.println();
-		
-		System.out.println(station.getCameras().get(0));
-		System.out.println(station.getCameras().get(0).stream());
-		station.getCameras().get(0).disable();
-		System.out.println(station.getCameras().get(0).stream() + "\n");
-		
-		station.getPanicButtons().get(0).panic();
-		
-		//System.out.println(station.getSensors());
-		System.out.println(station.getCameras());
-		System.out.println(station.getPanicButtons());
+	public void loadConfig(File file) throws FileNotFoundException {
+		Scanner scan = new Scanner(file);
+		Scanner strScan = null;
+		if (scan.hasNextLine())
+			PIN = Integer.valueOf(scan.nextLine());
+		while(scan.hasNextLine()) {
+			strScan = new Scanner(scan.nextLine());
+			String type = strScan.next();
+			int ID = Integer.valueOf(strScan.next());
+			
+			// add sensor to system based on type from config
+			switch(type) {
+				case "EntrySensor":
+					entrySensorList.add(new EntrySensor(this, ID));
+					break;
+				case "MotionSensor":
+					motionSensorList.add(new MotionSensor(this, ID));
+					break;
+				case "GlassSensor":
+					glassSensorList.add(new GlassSensor(this, ID));
+					break;
+				case "SmokeSensor":
+					smokeSensorList.add(new SmokeSensor(this, ID));
+					break;
+				case "TemperatureSensor":
+					temperatureSensorList.add(new TemperatureSensor(this, ID));
+					break;
+				case "WaterSensor":
+					waterSensorList.add(new WaterSensor(this, ID));
+					break;
+				case "Camera":
+					cameraList.add(new Camera(ID));
+					break;
+				case "PanicButton":
+					panicList.add(new PanicButton(this, ID));
+					break;
+				case "CarbonMonoxideSensor":
+				    carbonMonoList.add(new CarbonMonoxideSensor(this, ID));
+				    break;
+			}
+		}
+		scan.close();
+		strScan.close();
 	}
 }

@@ -4,23 +4,59 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-
 import javax.swing.*;
 
 import model.BaseStation;
 
+/**
+ * GUI representation of a camera.
+ * @author Blake Hamilton
+ */
 public class CameraGUI extends JFrame {
 
-    private BaseStation station;
+    /**
+	 * Generated serial version UID.
+	 */
+	private static final long serialVersionUID = 7001434813806010254L;
+	
+	/**
+	 * The BaseStation associated with this camera.
+	 */
+	private BaseStation station;
+	
+	/**
+	 * The ID number of the camera associated with the GUI.
+	 */
+    private int ID;
+    
+    /**
+     * The image representing the camera's stream.
+     */
     private JLabel imageDisplay;
     
-    public CameraGUI(BaseStation station) {
+    /**
+	 * Creates a GUI representation of a camera in a SimpliSafe security system.
+	 * @param station The BaseStation attached to the camera.
+	 */
+    public CameraGUI(BaseStation station, int ID) {
         this.station = station;
+        this.ID = ID;
         init();
     }
-
-    public void init() {
+    
+    /**
+	 * Refreshes the GUI display.
+	 */
+    public void refresh() {
+    	BufferedImage image = station.getCameras().get(ID - 1).stream();
+		imageDisplay.setIcon(new ImageIcon(image));
+    }
+    
+    /**
+	 * Initializes all GUI components.
+	 */
+    private void init() {
+    	setTitle("Camera" + ID);
         setSize(new Dimension(480, 400));
     	setMinimumSize(new Dimension(480, 400));
 
@@ -28,7 +64,7 @@ public class CameraGUI extends JFrame {
 		panel.setLayout(new BorderLayout());
 		add(panel);
 		
-		BufferedImage image = station.getCameras().get(0).stream();
+		BufferedImage image = station.getCameras().get(ID - 1).stream();
 		imageDisplay = new JLabel(new ImageIcon(image));
 		panel.add(imageDisplay);
 		
@@ -36,7 +72,7 @@ public class CameraGUI extends JFrame {
 		JButton toggle = new JButton("Toggle Camera");
 		toggle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				station.getCameras().get(0).toggle();
+				station.getCameras().get(ID - 1).toggle();
 				refresh();
 				panel.repaint();
 			}
@@ -49,14 +85,5 @@ public class CameraGUI extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    
-    public void refresh() {
-    	BufferedImage image = station.getCameras().get(0).stream();
-		imageDisplay.setIcon(new ImageIcon(image));
-    }
-    
-    public static void main(String[] args) throws FileNotFoundException {
-    	new CameraGUI(new BaseStation());
     }
 }

@@ -11,3 +11,5 @@ PanicButton 2
 CarbonMonoxideSensor 1
 GlassSensor 1
 SmokeSensor 1
+Keypad 1
+Keypad 2

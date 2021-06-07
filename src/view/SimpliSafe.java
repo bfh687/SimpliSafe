@@ -1,11 +1,18 @@
 package view;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import model.BaseStation;
 import model.BaseStationGUI;
 
+/**
+ * SimpliSafe application entry point. Initializes all GUIs and
+ * system models representing SimpliSafe devices.
+ * @author Blake Hamilton
+ */
 public class SimpliSafe {
 	
 	/**
@@ -17,6 +24,11 @@ public class SimpliSafe {
 	 * List of camera GUIs for the SimpliSafe system.
 	 */
 	public static ArrayList<CameraGUI> cameraList = new ArrayList<CameraGUI>();
+	
+	/**
+	 * List of panic button GUIs for the SimpliSafe system.
+	 */
+	public static ArrayList<PanicButtonGUI> panicList = new ArrayList<PanicButtonGUI>();
 	
 	/**
 	 * BaseStation GUI for the SimpliSafe system.
@@ -33,15 +45,11 @@ public class SimpliSafe {
      * @param args Command-line arguments.
      * @throws FileNotFoundException
      */
-    public static void main(String [] args) throws FileNotFoundException{
-        BaseStation homeBase = new BaseStation();
+    public static void main(String [] args) throws FileNotFoundException {
+    	File file = new File("src/model/config.txt");
+        BaseStation homeBase = new BaseStation(file);
+        loadFromFile(file, homeBase);
         
-        keypadList.add(new KeypadGUI(homeBase));
-        keypadList.add(new KeypadGUI(homeBase));
-        
-        cameraList.add(new CameraGUI(homeBase));
-        cameraList.add(new CameraGUI(homeBase));
-
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
     }
@@ -58,4 +66,36 @@ public class SimpliSafe {
     	}
     	baseGUI.refresh();
     }
+    
+    /**
+     * Loads and initializes device GUIs to the given BaseStation from the given file.
+     * @param file File to load devices from.
+     * @param station Station associated with the SimpliSafe system.
+     * @throws FileNotFoundException
+     */
+    public static void loadFromFile(File file, BaseStation station) throws FileNotFoundException {
+		Scanner scan = new Scanner(file);
+		Scanner strScan = null;
+		scan.nextLine(); // discard PIN
+		while(scan.hasNextLine()) {
+			strScan = new Scanner(scan.nextLine());
+			
+			String type = strScan.next();
+			int ID = Integer.valueOf(strScan.next());
+			
+			switch(type) {
+				case "Camera":
+					cameraList.add(new CameraGUI(station, ID));
+					break;
+				case "PanicButton":
+					panicList.add(new PanicButtonGUI(station, ID));
+					break;
+				case "Keypad":
+					keypadList.add(new KeypadGUI(station, ID));
+					break;
+			}
+		}
+		scan.close();
+		strScan.close();
+	}
 }

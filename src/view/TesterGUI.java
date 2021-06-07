@@ -1,46 +1,56 @@
 package view;
 
 import model.BaseStation;
-import model.BaseStationGUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
+/**
+ * GUI representation of the system's tester.
+ * @author Alibile Ugas
+ */
 public class TesterGUI extends JFrame {
+	
     /**
+	 * Generated serial version UID.
+	 */
+	private static final long serialVersionUID = 2260693441092707247L;
+	
+	/**
      * The alarms to be triggered
      */
     private JButton [] alarms = new JButton[8];
+    
     /**
      * text area  of result
      */
     private JTextArea result;
+    
     /**
      * The main panel of the GUI
      */
     private JPanel  myMainPanel = new JPanel();
+    
     /**
      * The north panel that contains result
      */
     private JPanel  myNorthPanel = new JPanel();
+    
     /**
      * The center panel the contains the buttons
      */
     private JPanel  myCenterPanel = new JPanel();
+    
     /**
      * Home base to be used in tests
      */
     private BaseStation station;
+    
     /**
-     * keypad gui
-     */
-    private KeypadGUI keypad;
-    /**
-     * base station gui
-     */
-    private BaseStationGUI baseGUI;
-
+	 * Creates a GUI representation of our SimpliSafe security system's tester.
+	 * @param station The BaseStation attached to the tester.
+	 */
     public TesterGUI(BaseStation theBase) throws FileNotFoundException {
         this.station = theBase;
         this.setTitle("Trigger Center");
@@ -50,8 +60,19 @@ public class TesterGUI extends JFrame {
         preparePanels();
         this.add(myMainPanel);
         this.pack();
+        this.setLocationRelativeTo(null);
         }
-
+    
+    /**
+     * Refreshes all the system's GUI displays.
+     */
+    public void refresh() {
+        SimpliSafe.refresh();
+    }
+    
+    /**
+     * Initializes all GUI components.
+     */
     private void preparePanels() {
         myMainPanel.setLayout(new BorderLayout());
         myNorthPanel.setLayout(new BorderLayout());
@@ -73,7 +94,10 @@ public class TesterGUI extends JFrame {
         }
         buttonListeners();
     }
-
+    
+    /**
+     * Initializes all button's action listeners.
+     */
     private void buttonListeners() {
 	    alarms[0].addActionListener(e -> {
 	        result.setText(station.getCarbonMonoList().get(0).detect());
@@ -108,14 +132,5 @@ public class TesterGUI extends JFrame {
 	        result.setText("Alarm cleared");
 	        refresh();
 	    });
-    }
-    
-    public void refresh() {
-        SimpliSafe.refresh();
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        BaseStation h = new BaseStation();
-        new TesterGUI(h);
     }
 }

@@ -6,28 +6,52 @@ import java.util.Timer;
 
 import javax.swing.*;
 
+/**
+ * GUI representation of the SimpliSafe base station.
+ * @author Lynda Tanielu
+ */
 public class BaseStationGUI extends JFrame {
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-    private BaseStation station;
-    private JPanel LED;
 
+    /**
+	 * Generated serial version UID.
+	 */
+	private static final long serialVersionUID = 8787502425696528028L;
+	
+	/**
+	 * The BaseStation represented by this GUI.
+	 */
+	private BaseStation station;
+	
+	/**
+	 * The "LED" on the BaseStation, representing arm/alarm state.
+	 */
+    private JPanel LED;
+    
+    /**
+     * Creates a new BaseStation GUI from the given BaseStation.
+     * @param station The BaseStation to build the GUI from.
+     */
     public BaseStationGUI(BaseStation station) {
         this.station = station;
         init();
     }
-
+    
+    /**
+     * Initializes all GUI components associated with the BaseStation.
+     */
     public void init() {
+    	// set title and size
+    	setTitle("Base Station");
         setSize(new Dimension(300, 450));
     	setMinimumSize(new Dimension(300, 450));
-
+    	
+    	// create GUI panel
     	JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		add(panel);
 		panel.setBackground(Color.LIGHT_GRAY);
-
+		
+		// set up LED display
         LED = new JPanel();
         LED.setBackground(Color.BLUE);
         LED.setPreferredSize(new Dimension(40, 40));
@@ -40,12 +64,14 @@ public class BaseStationGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    //if alarm is on or not
+    /**
+     * Updates LED display depending on whether the system is armed.
+     */
     public void alarmed() {
         if (station.getAlarm().isActive()) {
             LED.setBackground(Color.RED);
-            // Sample loop to flash every 1 seconds
-            
+
+            // flash LED is alarm is active
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 private int state;
@@ -70,6 +96,9 @@ public class BaseStationGUI extends JFrame {
         }
     }
     
+    /**
+     * Refreshes the GUI display.
+     */
     public void refresh() {
     	alarmed();
     }
