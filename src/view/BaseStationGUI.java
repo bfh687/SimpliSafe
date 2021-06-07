@@ -1,10 +1,12 @@
-package model;
+package view;
 
 import java.awt.*;
 import java.util.TimerTask;
 import java.util.Timer;
 
 import javax.swing.*;
+
+import model.BaseStation;
 
 /**
  * GUI representation of the SimpliSafe base station.

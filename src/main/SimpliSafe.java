@@ -1,4 +1,4 @@
-package view;
+package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.BaseStation;
-import model.BaseStationGUI;
+import view.BaseStationGUI;
+import view.CameraGUI;
+import view.KeypadGUI;
+import view.PanicButtonGUI;
+import view.TesterGUI;
 
 /**
  * SimpliSafe application entry point. Initializes all GUIs and

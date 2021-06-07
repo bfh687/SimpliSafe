@@ -3,6 +3,9 @@ package view;
 import model.BaseStation;
 
 import javax.swing.*;
+
+import main.SimpliSafe;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
 
