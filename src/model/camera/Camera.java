@@ -76,6 +76,14 @@ public class Camera {
 	}
 	
 	/**
+	 * Gets whether the camera is currently active.
+	 * @return Whether the camera is currently active.
+	 */
+	public boolean isActive() {
+		return active;
+	}
+	
+	/**
 	 * Gets the camera's ID.
 	 * @return The camera's ID.
 	 */

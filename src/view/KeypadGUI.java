@@ -196,7 +196,7 @@ public class KeypadGUI extends JFrame {
 					SimpliSafe.refresh();
 					LED.setBackground(Color.GREEN);
 				} catch (IllegalArgumentException ex) {
-					System.out.println("invalid input/system already disarmed");
+					// do nothing
 				}
 				textField.setText("");
 			}

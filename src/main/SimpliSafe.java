@@ -2,10 +2,12 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.BaseStation;
+import utility.FileUtility;
 import view.BaseStationGUI;
 import view.CameraGUI;
 import view.KeypadGUI;
@@ -56,6 +58,17 @@ public class SimpliSafe {
         
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
+        
+        // write BaseStation config to file on close/restart
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                try {
+					FileUtility.writeToFile(homeBase, file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+        }, "shutdown-thread"));
     }
     
     /**

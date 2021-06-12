@@ -32,8 +32,24 @@ public abstract class Sensor {
 	 * Gets the BaseStation associated with the sensor.
 	 * @return The BaseStation associated with the sensor.
 	 */
-	BaseStation getStation() {
+	public BaseStation getStation() {
 		return station;
+	}
+	
+	/**
+	 * Gets the sensor's ID number.
+	 * @return The sensor's ID number.
+	 */
+	public int getID() {
+		return ID;
+	}
+	
+	/**
+	 * String representation of the sensor.
+	 */
+	@Override
+	public String toString() {
+		return "[" + this.getClass().getSimpleName() + ID + "]";
 	}
 	
 	/**
@@ -45,28 +61,12 @@ public abstract class Sensor {
 	}
 	
 	/**
-	 * Gets the sensor's ID number.
-	 * @return The sensor's ID number.
-	 */
-	int getID() {
-		return ID;
-	}
-	
-	/**
 	 * Triggers the sensor.
 	 */
 	void trigger() {
 		detect();
 	}
-	
-	/**
-	 * String representation of the sensor.
-	 */
-	@Override
-	public String toString() {
-		return "[" + this.getClass().getSimpleName() + ID + "]";
-	}
-	
+
 	/**
 	 * Detects sensor related threat. Since we do not have access to the physical component, 
 	 * it is implied that when this method is called the sensor has sensed its relative threat.

@@ -1,15 +1,14 @@
 1234
-Camera 1
-Camera 2
-EntrySensor 1
-EntrySensor 2
-WaterSensor 1
-TemperatureSensor 1
-MotionSensor 1
-PanicButton 1
-PanicButton 2
-CarbonMonoxideSensor 1
-GlassSensor 1
-SmokeSensor 1
 Keypad 1
 Keypad 2
+Camera 1
+Camera 2
+PanicButton 1
+PanicButton 2
+EntrySensor 1
+WaterSensor 1
+GlassSensor 1
+SmokeSensor 1
+MotionSensor 1
+CarbonMonoxideSensor 1
+TemperatureSensor 1

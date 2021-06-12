@@ -143,7 +143,21 @@ public class BaseStation {
 	 * @param sensor The sensor to be added to the system.
 	 */
 	public void addSensor(Sensor sensor) {
-		//sensorList.add(sensor);
+		if (sensor instanceof EntrySensor) {
+			entrySensorList.add(new EntrySensor(this, sensor.getID()));
+		} else if (sensor instanceof MotionSensor) {
+			motionSensorList.add(new MotionSensor(this, sensor.getID()));
+		} else if (sensor instanceof GlassSensor) {
+			glassSensorList.add(new GlassSensor(this, sensor.getID()));
+		} else if (sensor instanceof SmokeSensor) {
+			smokeSensorList.add(new SmokeSensor(this, sensor.getID()));
+		} else if (sensor instanceof TemperatureSensor) {
+			temperatureSensorList.add(new TemperatureSensor(this, sensor.getID()));
+		} else if (sensor instanceof WaterSensor) {
+			waterSensorList.add(new WaterSensor(this, sensor.getID()));
+		} else if (sensor instanceof CarbonMonoxideSensor) {
+			carbonMonoList.add(new CarbonMonoxideSensor(this, sensor.getID()));
+		}
 	}
 	
 	/**
@@ -151,7 +165,21 @@ public class BaseStation {
 	 * @param sensor The sensor to be removed from the system.
 	 */
 	public void removeSensor(Sensor sensor) {
-		//sensorList.remove(sensor);
+		if (sensor instanceof EntrySensor) {
+			entrySensorList.remove(sensor);
+		} else if (sensor instanceof MotionSensor) {
+			motionSensorList.remove(sensor);
+		} else if (sensor instanceof GlassSensor) {
+			glassSensorList.remove(sensor);
+		} else if (sensor instanceof SmokeSensor) {
+			smokeSensorList.remove(sensor);
+		} else if (sensor instanceof TemperatureSensor) {
+			temperatureSensorList.remove(sensor);
+		} else if (sensor instanceof WaterSensor) {
+			waterSensorList.remove(sensor);
+		} else if (sensor instanceof CarbonMonoxideSensor) {
+			carbonMonoList.remove(sensor);
+		}
 	}
 	
 	/**
@@ -309,32 +337,32 @@ public class BaseStation {
 			// add sensor to system based on type from config
 			switch(type) {
 				case "EntrySensor":
-					entrySensorList.add(new EntrySensor(this, ID));
+					addSensor(new EntrySensor(this, ID));
 					break;
 				case "MotionSensor":
-					motionSensorList.add(new MotionSensor(this, ID));
+					addSensor(new MotionSensor(this, ID));
 					break;
 				case "GlassSensor":
-					glassSensorList.add(new GlassSensor(this, ID));
+					addSensor(new GlassSensor(this, ID));
 					break;
 				case "SmokeSensor":
-					smokeSensorList.add(new SmokeSensor(this, ID));
+					addSensor(new SmokeSensor(this, ID));
 					break;
 				case "TemperatureSensor":
-					temperatureSensorList.add(new TemperatureSensor(this, ID));
+					addSensor(new TemperatureSensor(this, ID));
 					break;
 				case "WaterSensor":
-					waterSensorList.add(new WaterSensor(this, ID));
+					addSensor(new WaterSensor(this, ID));
 					break;
+				case "CarbonMonoxideSensor":
+					addSensor(new CarbonMonoxideSensor(this, ID));
+				    break;
 				case "Camera":
 					cameraList.add(new Camera(ID));
 					break;
 				case "PanicButton":
 					panicList.add(new PanicButton(this, ID));
 					break;
-				case "CarbonMonoxideSensor":
-				    carbonMonoList.add(new CarbonMonoxideSensor(this, ID));
-				    break;
 			}
 		}
 		scan.close();
