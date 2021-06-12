@@ -105,7 +105,7 @@ public class Camera {
 	
 	
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * String representation of the camera.
 	 */
 	@Override

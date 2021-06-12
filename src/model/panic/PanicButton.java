@@ -51,7 +51,7 @@ public class PanicButton {
 	}
 	
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 * String representation of the panic button.
 	 */
 	@Override

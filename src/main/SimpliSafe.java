@@ -49,7 +49,7 @@ public class SimpliSafe {
     /**
      * SimpliSafe security system entry point.
      * @param args Command-line arguments.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If the file is not found.
      */
     public static void main(String [] args) throws FileNotFoundException {
     	File file = new File("src/model/config.txt");
@@ -88,7 +88,7 @@ public class SimpliSafe {
      * Loads and initializes device GUIs to the given BaseStation from the given file.
      * @param file File to load devices from.
      * @param station Station associated with the SimpliSafe system.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If the file is not found.
      */
     public static void loadFromFile(File file, BaseStation station) throws FileNotFoundException {
 		Scanner scan = new Scanner(file);

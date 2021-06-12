@@ -81,7 +81,8 @@ public class BaseStation {
 	
 	/**
 	 * Creates a BaseStation from the given configuration file.
-	 * @throws FileNotFoundException
+	 * @param file The file to load the BaseStation from.
+	 * @throws FileNotFoundException If file is not found.
 	 */
 	public BaseStation(File file) throws FileNotFoundException {
 		
@@ -133,6 +134,7 @@ public class BaseStation {
 	/**
 	 * Triggers the system's alarm.
 	 * @param device The device that triggered the alarm.
+	 * @return Device that triggered the alarm.
 	 */
 	public String triggerAlarm(String device) {
 		return alarm.trigger(device);
@@ -322,7 +324,7 @@ public class BaseStation {
 	 * Loads and initializes all devices associated with the 
 	 * base station using the given config file.
 	 * @param file The config file.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException If file does not exist.
 	 */
 	public void loadConfig(File file) throws FileNotFoundException {
 		Scanner scan = new Scanner(file);
