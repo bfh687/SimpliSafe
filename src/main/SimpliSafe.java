@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.BaseStation;
+import view.*;
 import utility.FileUtility;
 import view.BaseStationGUI;
 import view.CameraGUI;
@@ -45,6 +46,10 @@ public class SimpliSafe {
      * Tester GUI for the SimpliSafe system.
      */
     public static TesterGUI testGUI;
+	/**
+	 * GUI for the MobileApp system.
+	 */
+    public static MobileApp mobApp;
     
     /**
      * SimpliSafe security system entry point.
@@ -58,7 +63,9 @@ public class SimpliSafe {
         
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
-        
+        mobApp = new MobileApp(homeBase);
+
+
         // write BaseStation config to file on close/restart
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
