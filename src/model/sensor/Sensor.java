@@ -2,6 +2,7 @@ package model.sensor;
 
 import model.BaseStation;
 
+import javax.swing.*;
 /**
  * Abstract epresentation of a sensor.
  * @author Blake Hamilton
@@ -73,4 +74,8 @@ public abstract class Sensor {
 	 * @return The result of the detect method.
 	 */
 	public abstract String detect();
+
+	public void showStatus() {
+		JOptionPane.showMessageDialog(new JFrame(), "Sensor: " + this.toString());
+	}
 }
