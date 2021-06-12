@@ -46,15 +46,16 @@ public class SimpliSafe {
      * Tester GUI for the SimpliSafe system.
      */
     public static TesterGUI testGUI;
+    
 	/**
 	 * GUI for the MobileApp system.
 	 */
-    public static MobileApp mobApp;
+    public static MobileApplicationGUI mobApp;
     
     /**
      * SimpliSafe security system entry point.
      * @param args Command-line arguments.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If file is not found.
      */
     public static void main(String [] args) throws FileNotFoundException {
     	File file = new File("src/model/config.txt");
@@ -63,8 +64,7 @@ public class SimpliSafe {
         
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
-        mobApp = new MobileApp(homeBase);
-
+        mobApp = new MobileApplicationGUI(homeBase);
 
         // write BaseStation config to file on close/restart
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -95,7 +95,7 @@ public class SimpliSafe {
      * Loads and initializes device GUIs to the given BaseStation from the given file.
      * @param file File to load devices from.
      * @param station Station associated with the SimpliSafe system.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException If file is not found.
      */
     public static void loadFromFile(File file, BaseStation station) throws FileNotFoundException {
 		Scanner scan = new Scanner(file);

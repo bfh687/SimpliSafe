@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"model.sensor"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"main"},{"l":"model"},{"l":"model.alarm"},{"l":"model.camera"},{"l":"model.panic"},{"l":"model.sensor"},{"l":"test.alarm"},{"l":"test.camera"},{"l":"test.panic"},{"l":"test.sensor"},{"l":"test.system"},{"l":"utility"},{"l":"view"}];updateSearchResults();

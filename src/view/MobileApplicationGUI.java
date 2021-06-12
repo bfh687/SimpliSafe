@@ -6,30 +6,63 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import model.BaseStation;
 import model.camera.Camera;
 import model.sensor.Sensor;
 
-public class MobileApp extends JFrame {
+/**
+ * Mobile application GUI.
+ * @author Troy Zon
+ */
+public class MobileApplicationGUI extends JFrame {
+	
     /**
-     *
+     * The width of the applcation.
      */
     private static final int WIDTH = 500;
+    
+    /**
+     * The height of the applcation.
+     */
     private static final int LENGTH = 500;
+    
+    /**
+     * The generated serial version UID.
+     */
     private static final long serialVersionUID = 4835892900024045580L;
+    
+    /**
+     * The BaseStation associated with the mobile application.
+     */
     private BaseStation station;
+    
+    /**
+     * All sensors in the system.
+     */
     private Sensor[] sensors;
+    
+    /**
+     * All cameras in the system.
+     */
     private Camera[] cameras;
-    private JTextField textField;
+    
+    /**
+     * The applications frame.
+     */
     private JFrame frame;
-
-    public MobileApp(BaseStation station) {
+    
+    /**
+     * Creates a mobile application GUI.
+     * @param station The BaseStation associated with the mobile application.
+     */
+    public MobileApplicationGUI(BaseStation station) {
         this.station = station;
         init();
     }
-
+    
+    /**
+   	 * Initializes all GUI components.
+   	 */
     private void init() {
         frame = new JFrame("Mobile Application");
         frame.setSize(new Dimension(WIDTH, LENGTH));
@@ -44,7 +77,7 @@ public class MobileApp extends JFrame {
         JComboBox<Camera> cameraDropDown = createCameraDropDown();
         cameraPanel.add(cameraDropDown);
 
-        JButton cameraButton =new JButton("Check Steam");
+        JButton cameraButton =new JButton("Check Stream");
         cameraPanel.add(cameraButton);
 
         frame.add(cameraPanel);
@@ -67,6 +100,7 @@ public class MobileApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CameraGUI feed = new CameraGUI(station,
                         cameraDropDown.getItemAt(cameraDropDown.getSelectedIndex()).getID());
+                feed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -76,15 +110,6 @@ public class MobileApp extends JFrame {
             }
         });
 
-//		JPanel textFieldPanel = createTextField();
-//		textFieldPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-//		panel.add(textFieldPanel, BorderLayout.NORTH);
-//
-//		JPanel keypadPanel = createKeypad();
-//		keypadPanel.setBorder(new EmptyBorder(0, 20, 20, 20));
-//
-//		panel.add(keypadPanel, BorderLayout.CENTER);
-
         pack();
         frame.setLayout(new FlowLayout());
         frame.setVisible(true);
@@ -92,7 +117,11 @@ public class MobileApp extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+    
+    /**
+     * Creates the sensor drop down component.
+     * @return JComboBox of all sensors.
+     */
     private JComboBox<Sensor> createSensorDropDown() {
         List<Sensor> carbonMonoSensors = station.getCarbonMonoList();
         List<Sensor> entrySensors = station.getEntrySensorList();
@@ -106,6 +135,7 @@ public class MobileApp extends JFrame {
         sensors = new Sensor[carbonMonoSensors.size() + entrySensors.size()
                 + temperatureSensors.size() + motionSensors.size() + glassSensors.size()
                 + waterSensors.size() + smokeSensors.size() + 1];
+        
         int i = 0;
         for (Sensor sensor : carbonMonoSensors) {
             sensors[i] = sensor;
@@ -143,7 +173,11 @@ public class MobileApp extends JFrame {
         return new JComboBox<Sensor>(sensors);
 
     }
-
+    
+    /**
+     * Creates the camera drop down component.
+     * @return JComboBox of all cameras.
+     */
     private JComboBox<Camera> createCameraDropDown(){
         List<Camera> cameraList = station.getCameras();
         cameras = new Camera[cameraList.size() + 1];
@@ -154,131 +188,4 @@ public class MobileApp extends JFrame {
         }
         return new JComboBox<Camera>(cameras);
     }
-
-//	public void init() {
-//		setSize(new Dimension(300, 450));
-//		setMinimumSize(new Dimension(300, 450));
-//
-//		JPanel panel = new JPanel();
-//		panel.setLayout(new BorderLayout());
-//		add(panel);
-//
-//		JPanel textFieldPanel = createTextField();
-//		textFieldPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-//		panel.add(textFieldPanel, BorderLayout.NORTH);
-//
-//		JPanel keypadPanel = createKeypad();
-//		keypadPanel.setBorder(new EmptyBorder(0, 20, 20, 20));
-//
-//		panel.add(keypadPanel, BorderLayout.CENTER);
-//
-//		pack();
-//		setVisible(true);
-//		setResizable(false);
-//		setLocationRelativeTo(null);
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
-//
-//	public JPanel createTextField() {
-//		JPanel panel = new JPanel(new BorderLayout());
-//		textField = new JTextField(10);
-//		textField.setEditable(false);
-//		panel.add(textField);
-//
-//		LED = new JPanel();
-//		LED.setBackground(Color.GREEN);
-//		panel.add(LED, BorderLayout.EAST);
-//
-//		return panel;
-//	}
-//
-//	public JPanel createKeypad() {
-//		JPanel panel = new JPanel(new BorderLayout());
-//
-//		// --------------------------------------------------
-//		JPanel armButtons = new JPanel();
-//
-//		JButton stay = new JButton("Arm");
-//		stay.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				station.arm();
-//				LED.setBackground(Color.RED);
-//			}
-//
-//		});
-//
-//		armButtons.add(stay);
-//
-//		armButtons.setBorder(new EmptyBorder(0, 0, 10, 0));
-//		// --------------------------------------------------
-//
-//		// --------------------------------------------------
-//		JPanel numPanel = new JPanel(new GridLayout(4, 3));
-//
-//		JButton[] buttons = new JButton[10];
-//
-//		final JButton backButton = new JButton("\u2190");
-//		backButton.setEnabled(false);
-//
-//		for (int i = 1; i < 10; i++) {
-//			JButton btn = new JButton("" + i);
-//			buttons[i] = btn;
-//			System.out.println(btn.getText());
-//			btn.addActionListener(new ActionListener() {
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					if (!backButton.isEnabled())
-//						backButton.setEnabled(true);
-//					textField.setText(textField.getText().concat(btn.getText()));
-//				}
-//
-//			});
-//			numPanel.add(btn);
-//		}
-//
-//		backButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (textField.getText().length() == 1)
-//					backButton.setEnabled(false);
-//				textField.setText(textField.getText().substring(0, textField.getText().length() - 1));
-//			}
-//
-//		});
-//		numPanel.add(backButton);
-//
-//		JButton button0 = new JButton("0");
-//		button0.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				textField.setText(textField.getText().concat(button0.getText()));
-//			}
-//
-//		});
-//		numPanel.add(button0);
-//
-//		JButton enterButton = new JButton("\u2713");
-//		enterButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					station.disarm(Integer.valueOf(textField.getText()));
-//				} catch (IllegalArgumentException ex) {
-//					System.out.println("invalid input");
-//				}
-//			}
-//
-//		});
-//		numPanel.add(enterButton);
-//		// --------------------------------------------------
-//
-//		panel.add(armButtons, BorderLayout.NORTH);
-//		panel.add(numPanel);
-//
-//		return panel;
-//	}
-
 }
