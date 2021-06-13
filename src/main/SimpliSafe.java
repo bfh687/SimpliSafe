@@ -49,7 +49,7 @@ public class SimpliSafe {
 	/**
 	 * GUI for the MobileApp system.
 	 */
-    public static MobileApp mobApp;
+    public static MobileApplicationGUI mobApp;
     
     /**
      * SimpliSafe security system entry point.
@@ -63,7 +63,7 @@ public class SimpliSafe {
         
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
-        mobApp = new MobileApp(homeBase);
+        mobApp = new MobileApplicationGUI(homeBase);
 
 
         // write BaseStation config to file on close/restart
