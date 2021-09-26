@@ -21,7 +21,7 @@ import view.TesterGUI;
  * @author Blake Hamilton
  */
 public class SimpliSafe {
-	
+
 	/**
 	 * List of keypad GUIs for the SimpliSafe system.
 	 */
@@ -40,23 +40,23 @@ public class SimpliSafe {
 	/**
 	 * BaseStation GUI for the SimpliSafe system.
 	 */
-    public static BaseStationGUI baseGUI;
+	public static BaseStationGUI baseGUI;
     
     /**
      * Tester GUI for the SimpliSafe system.
      */
-    public static TesterGUI testGUI;
+	public static TesterGUI testGUI;
 	/**
 	 * GUI for the MobileApp system.
 	 */
-    public static MobileApplicationGUI mobApp;
+	public static MobileApplicationGUI mobApp;
     
     /**
      * SimpliSafe security system entry point.
      * @param args Command-line arguments.
      * @throws FileNotFoundException If the file is not found.
      */
-    public static void main(String [] args) throws FileNotFoundException {
+	public static void main(String [] args) throws FileNotFoundException {
     	File file = new File("src/model/config.txt");
         BaseStation homeBase = new BaseStation(file);
         loadFromFile(file, homeBase);
@@ -64,7 +64,6 @@ public class SimpliSafe {
         testGUI = new TesterGUI(homeBase);
         baseGUI = new BaseStationGUI(homeBase);
         mobApp = new MobileApplicationGUI(homeBase);
-
 
         // write BaseStation config to file on close/restart
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -81,7 +80,7 @@ public class SimpliSafe {
     /**
      * Refreshes all GUIs so that they all reflect the BaseStation's state.
      */
-    public static void refresh() {
+	public static void refresh() {
     	for (KeypadGUI keypad : keypadList) {
     		keypad.refresh();
     	}
@@ -97,7 +96,7 @@ public class SimpliSafe {
      * @param station Station associated with the SimpliSafe system.
      * @throws FileNotFoundException If the file is not found.
      */
-    public static void loadFromFile(File file, BaseStation station) throws FileNotFoundException {
+	public static void loadFromFile(File file, BaseStation station) throws FileNotFoundException {
 		Scanner scan = new Scanner(file);
 		Scanner strScan = null;
 		scan.nextLine(); // discard PIN
